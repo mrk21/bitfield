@@ -6,10 +6,10 @@
 
 namespace bitfield {
     class bit_type {
-        uint8_t v;
+        uint32_t v;
         
     public:
-        constexpr bit_type(uint8_t v) : v(v) {}
+        constexpr bit_type(uint32_t v) : v(v) {}
         
         constexpr bit_type floor() const {
             return bit_type(this->v >> 3 << 3);
