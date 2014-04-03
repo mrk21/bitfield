@@ -59,11 +59,12 @@ namespace bitfield {
         
         // for Little-Endian
         uint32_t get() const {
-            uint8_t * addr = bit_type(OFFSET).addr(this);
             uint32_t value = 0x00;
+            uint8_t * addr = bit_type(OFFSET).addr(this);
+            uint8_t * value_addr = (uint8_t *)&value;
             
             for (uint32_t i=0; i < BYTE; ++i) {
-                value |= addr[i] << ((BYTE-i-1)<<3);
+                value_addr[BYTE-i-1] = addr[i];
             }
             
             value &= MASK;
