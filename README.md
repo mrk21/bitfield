@@ -1,7 +1,7 @@
 bitfield
 ========
 
-C++11 bitfield library
+C++11 bitfield template library
 
 Examples
 ========
@@ -47,7 +47,6 @@ union ip_header {
     dest_ip_address_type    dest_ip_address;
     options_type            options;
 };
-
 
 int main() {
     // packet
