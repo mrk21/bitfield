@@ -21,6 +21,24 @@ namespace bitfield {
         using next_bitfield = bitfield<NextSize, NEXT_OFFSET>;
         using container_type = std::array<uint8_t, bit_type(NEXT_OFFSET).ceil().byte()>;
         
+        bitfield() = default;
+        bitfield(const bitfield & v) { this->set(v.get()); }
+        bitfield(uint32_t v) { this->set(v); }
+        
+        bitfield & operator =(const bitfield & rop) {
+            this->set(rop.get());
+            return *this;
+        }
+        
+        bitfield & operator =(uint32_t rop) {
+            this->set(rop);
+            return *this;
+        }
+        
+        operator uint32_t() const {
+            return this->get();
+        }
+        
         // for Little-Endian
         uint32_t get() const {
             uint32_t value = 0x00;
@@ -53,16 +71,7 @@ namespace bitfield {
                 addr[i] |= value_addr[j];
             }
         }
-        
-        operator uint32_t() const {
-            return this->get();
-        }
-        
-        bitfield & operator =(uint32_t value) {
-            this->set(value);
-            return *this;
-        }
-    };
+   };
 }
 
 #endif // __INCLUDED_BITFIELD_BITFIELD_HPP__
