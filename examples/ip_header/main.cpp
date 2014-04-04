@@ -1,5 +1,5 @@
 #include <bitfield/bitfield.hpp>
-#include <iostream>
+#include <bitfield/iostream.hpp>
 
 // IP header
 union ip_header {
@@ -36,7 +36,6 @@ union ip_header {
     dest_ip_address_type    dest_ip_address;
     options_type            options;
 };
-
 
 int main() {
     // packet

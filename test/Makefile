@@ -3,19 +3,22 @@ CXXFLAGS += -std=c++11
 CXXFLAGS += -MMD -MP -Wall
 CXXFLAGS += $(addprefix -I, ${INCLUDE_PATH})
 INCLUDE_PATH = .. ../vendor/bandit
+TARGET = spec_main
+SRCS = ${TARGET} $(basename $(shell find spec -name '*_spec.cpp'))
+
 
 .PHONY: all
-all: spec
-	./spec ${args}
+all: ${TARGET}
+	./$< ${args}
 
 .PHONY: clean
 clean:
-	${RM} spec spec.d spec.o
+	${RM} ${TARGET} $(addsuffix .d, ${SRCS}) $(addsuffix .o, ${SRCS})
 
 .PHONY: rebuild
 rebuild: clean all
 
-spec: spec.o
+${TARGET}: $(addsuffix .o, ${SRCS})
 	${CXX} ${LDFLAGS} -o $@ $^
 
--include spec.d
+-include $(addsuffix .d, ${SRCS})
