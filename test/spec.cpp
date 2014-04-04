@@ -21,35 +21,37 @@ go_bandit([&]{
     
     describe("bit_type", [&]{
         describe("#floor()", [&]{
-            describe("when value is 0" , [&]{ it("should be 0" , [&]{ AssertThat(bit_type( 0).floor().bit(), Equals( 0)); }); });
-            describe("when value is 7" , [&]{ it("should be 0" , [&]{ AssertThat(bit_type( 7).floor().bit(), Equals( 0)); }); });
-            describe("when value is 8" , [&]{ it("should be 8" , [&]{ AssertThat(bit_type( 8).floor().bit(), Equals( 8)); }); });
-            describe("when value is 9" , [&]{ it("should be 8" , [&]{ AssertThat(bit_type( 9).floor().bit(), Equals( 8)); }); });
-            describe("when value is 15", [&]{ it("should be 8" , [&]{ AssertThat(bit_type(15).floor().bit(), Equals( 8)); }); });
-            describe("when value is 16", [&]{ it("should be 16", [&]{ AssertThat(bit_type(16).floor().bit(), Equals(16)); }); });
-            describe("when value is 17", [&]{ it("should be 16", [&]{ AssertThat(bit_type(17).floor().bit(), Equals(16)); }); });
+            describe("when value is 0" , [&]{ it("should be 0" , [&]{ AssertThat(( 0_bit).floor().bit(), Equals( 0)); }); });
+            describe("when value is 1" , [&]{ it("should be 0" , [&]{ AssertThat(( 1_bit).floor().bit(), Equals( 0)); }); });
+            describe("when value is 7" , [&]{ it("should be 0" , [&]{ AssertThat(( 7_bit).floor().bit(), Equals( 0)); }); });
+            describe("when value is 8" , [&]{ it("should be 8" , [&]{ AssertThat(( 8_bit).floor().bit(), Equals( 8)); }); });
+            describe("when value is 9" , [&]{ it("should be 8" , [&]{ AssertThat(( 9_bit).floor().bit(), Equals( 8)); }); });
+            describe("when value is 15", [&]{ it("should be 8" , [&]{ AssertThat((15_bit).floor().bit(), Equals( 8)); }); });
+            describe("when value is 16", [&]{ it("should be 16", [&]{ AssertThat((16_bit).floor().bit(), Equals(16)); }); });
+            describe("when value is 17", [&]{ it("should be 16", [&]{ AssertThat((17_bit).floor().bit(), Equals(16)); }); });
         });
         
         describe("#ceil()", [&]{
-            describe("when value is 0" , [&]{ it("should be 0" , [&]{ AssertThat(bit_type( 0).ceil().bit(), Equals( 0)); }); });
-            describe("when value is 7" , [&]{ it("should be 8" , [&]{ AssertThat(bit_type( 7).ceil().bit(), Equals( 8)); }); });
-            describe("when value is 8" , [&]{ it("should be 8" , [&]{ AssertThat(bit_type( 8).ceil().bit(), Equals( 8)); }); });
-            describe("when value is 9" , [&]{ it("should be 16", [&]{ AssertThat(bit_type( 9).ceil().bit(), Equals(16)); }); });
-            describe("when value is 15", [&]{ it("should be 16", [&]{ AssertThat(bit_type(15).ceil().bit(), Equals(16)); }); });
-            describe("when value is 16", [&]{ it("should be 16", [&]{ AssertThat(bit_type(16).ceil().bit(), Equals(16)); }); });
-            describe("when value is 17", [&]{ it("should be 24", [&]{ AssertThat(bit_type(17).ceil().bit(), Equals(24)); }); });
+            describe("when value is 0" , [&]{ it("should be 0" , [&]{ AssertThat(( 0_bit).ceil().bit(), Equals( 0)); }); });
+            describe("when value is 1" , [&]{ it("should be 8" , [&]{ AssertThat(( 1_bit).ceil().bit(), Equals( 8)); }); });
+            describe("when value is 7" , [&]{ it("should be 8" , [&]{ AssertThat(( 7_bit).ceil().bit(), Equals( 8)); }); });
+            describe("when value is 8" , [&]{ it("should be 8" , [&]{ AssertThat(( 8_bit).ceil().bit(), Equals( 8)); }); });
+            describe("when value is 9" , [&]{ it("should be 16", [&]{ AssertThat(( 9_bit).ceil().bit(), Equals(16)); }); });
+            describe("when value is 15", [&]{ it("should be 16", [&]{ AssertThat((15_bit).ceil().bit(), Equals(16)); }); });
+            describe("when value is 16", [&]{ it("should be 16", [&]{ AssertThat((16_bit).ceil().bit(), Equals(16)); }); });
+            describe("when value is 17", [&]{ it("should be 24", [&]{ AssertThat((17_bit).ceil().bit(), Equals(24)); }); });
         });
         
         describe("#max_value()", [&]{
-            describe("when value is 0" , [&]{ it("should be 0"         , [&]{ AssertThat(bit_type( 0).max_value(), Equals(         0)); }); });
-            describe("when value is 10", [&]{ it("should be 1023"      , [&]{ AssertThat(bit_type(10).max_value(), Equals(      1023)); }); });
-            describe("when value is 32", [&]{ it("should be 4294967295", [&]{ AssertThat(bit_type(32).max_value(), Equals(4294967295)); }); });
-            describe("when value is 33", [&]{ it("should be 4294967295", [&]{ AssertThat(bit_type(33).max_value(), Equals(4294967295)); }); });
+            describe("when value is 0" , [&]{ it("should be 0"         , [&]{ AssertThat(( 0_bit).max_value(), Equals(         0)); }); });
+            describe("when value is 10", [&]{ it("should be 1023"      , [&]{ AssertThat((10_bit).max_value(), Equals(      1023)); }); });
+            describe("when value is 32", [&]{ it("should be 4294967295", [&]{ AssertThat((32_bit).max_value(), Equals(4294967295)); }); });
+            describe("when value is 33", [&]{ it("should be 4294967295", [&]{ AssertThat((33_bit).max_value(), Equals(4294967295)); }); });
         });
         
         describe("#diff(bit_type target)", [&]{
-            describe("when value is 7 and target is 5", [&]{ it("should be 2", [&]{ AssertThat(bit_type(7).diff(5).bit(), Equals(2)); }); });
-            describe("when value is 5 and target is 7", [&]{ it("should be 2", [&]{ AssertThat(bit_type(5).diff(7).bit(), Equals(2)); }); });
+            describe("when value is 7 and target is 5", [&]{ it("should be 2", [&]{ AssertThat((7_bit).diff(5_bit).bit(), Equals(2)); }); });
+            describe("when value is 5 and target is 7", [&]{ it("should be 2", [&]{ AssertThat((5_bit).diff(7_bit).bit(), Equals(2)); }); });
         });
         
         describe("#addr(const T * addr)", [&]{

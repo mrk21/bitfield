@@ -42,6 +42,10 @@ namespace bitfield {
         }
     };
     
+    inline constexpr bit_type operator "" _bit(unsigned long long int value) { return bit_type(value); }
+    inline constexpr bit_type operator "" _byte(unsigned long long int value) { return bit_type(value << 3); }
+    
+    
     template<uint32_t Size, uint32_t Offset = 0>
     class bitfield {
     public:
