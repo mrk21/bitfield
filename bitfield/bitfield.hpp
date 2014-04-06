@@ -6,7 +6,7 @@
 #include <array>
 
 namespace bitfield {
-   template<uint32_t Size, uint32_t Offset = 0>
+    template<uint32_t Size, uint32_t Offset = 0>
     class bitfield {
     public:
         static constexpr uint32_t SIZE = Size;

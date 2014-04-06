@@ -33,7 +33,7 @@ namespace bitfield {
         constexpr bit_type diff(bit_type target) const {
             return bit_type(this->v < target.v ? target.v - this->v
                                                : this->v - target.v);
-        };
+        }
         
         template<typename T>
         constexpr uint8_t * addr(const T * addr) const {
