@@ -40,11 +40,11 @@ go_bandit([&]{
             describe("when value is 5 and target is 7", [&]{ it("should be 2", [&]{ AssertThat((5_bit).diff(7_bit).bit(), Equals(2)); }); });
         });
         
-        describe("#addr(const T * addr)", [&]{
-            it("should be `addr + #byte()`", [&]{
+        describe("#addr(const U * base_addr)", [&]{
+            it("should be `base_addr + #byte()`", [&]{
                 bit_type bit(5);
-                uint32_t * addr = 0x00;
-                AssertThat(bit.addr(addr), Equals((uint8_t *)addr + bit.byte()));
+                uint32_t * base_addr = 0x00;
+                AssertThat(bit.addr(base_addr), Equals((uint8_t *)base_addr + bit.byte()));
             });
         });
     });
