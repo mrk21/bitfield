@@ -30,6 +30,10 @@ namespace bitfield {
             return this->v >= 32 ? 0xffffffff : (0x01 << this->v) - 0x01;
         }
         
+        constexpr bit_type add(bit_type target) const {
+            return this->v + target.v;
+        }
+        
         constexpr bit_type diff(bit_type target) const {
             return this->v < target.v ? target.v - this->v
                                       : this->v - target.v;
