@@ -48,7 +48,7 @@ go_bandit([&]{
             it("should be `base_addr + #byte()`", [&]{
                 bit_type bit(5);
                 uint32_t * base_addr = 0x00;
-                AssertThat(bit.addr(base_addr), Equals((uint8_t *)base_addr + bit.byte()));
+                AssertThat(bit.addr(base_addr) == ((uint8_t *)base_addr + bit.byte()), Equals(true));
             });
         });
     });

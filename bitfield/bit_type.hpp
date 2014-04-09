@@ -46,7 +46,6 @@ namespace bitfield {
     };
     
     inline constexpr bit_type operator "" _bit(unsigned long long int value) { return value; }
-    inline constexpr bit_type operator "" _byte(unsigned long long int value) { return value << 3; }
 }
 
 #endif // __INCLUDED_BITFIELD_BIT_TYPE_HPP__
