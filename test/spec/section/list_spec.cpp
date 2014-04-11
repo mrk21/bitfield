@@ -23,15 +23,13 @@ namespace bitfield { namespace section {
             }
         };
         
-        class section_container_type: public list<section_container_type, section_type> {
-        public:
-            uint8_t * base_addr() {
+        struct section_container_type: public list<section_container_type, section_type, list_test> {
+            const uint8_t * base_addr() const {
                 return bit_type(v1_type::NEXT_OFFSET).addr(this);
             }
             
             std::size_t length() const {
-                const list_test * obj = (const list_test *)(this);
-                return obj->sections_length;
+                return this->parent()->sections_length;
             }
         };
         
@@ -61,23 +59,57 @@ go_bandit([]{
             }}};
         });
         
-        it("should iterated sections", [&]{
-            auto it = packet->sections.begin();
-            auto end = packet->sections.end();
+        describe("#size()", [&]{
+            it("should be the number of fieldsets in the list.", [&]{
+                AssertThat(packet->sections.size(), Equals(3));
+            });
+        });
+        
+        describe("iterator", [&]{
+            it("should iterate each fieldset in the list", [&]{
+                auto it = packet->sections.begin();
+                auto end = packet->sections.end();
+                
+                AssertThat(it, not Equals(end));
+                AssertThat(it->v1, Equals(16));
+                
+                ++it;
+                AssertThat(it, not Equals(end));
+                AssertThat(it->v1, Equals(240));
+                
+                ++it;
+                AssertThat(it, not Equals(end));
+                AssertThat(it->v1, Equals(21));
+                
+                ++it;
+                AssertThat(it, Equals(end));
+            });
             
-            AssertThat(it != end, Equals(true));
-            AssertThat(it->v1, Equals(16));
-            
-            ++it;
-            AssertThat(it != end, Equals(true));
-            AssertThat(it->v1, Equals(240));
-            
-            ++it;
-            AssertThat(it != end, Equals(true));
-            AssertThat(it->v1, Equals(21));
-            
-            ++it;
-            AssertThat(it != end, Equals(false));
+            describe("inner iterator", [&]{
+                it("should iterate each byte of the fieldset", [&]{
+                    auto it = packet->sections.begin();
+                    auto it_it = it.begin();
+                    auto it_end = it.end();
+                    
+                    AssertThat(it_it, not Equals(it_end));
+                    AssertThat(uint32_t(*it_it), Equals(0x04));
+                    
+                    ++it_it;
+                    AssertThat(it_it, not Equals(it_end));
+                    AssertThat(uint32_t(*it_it), Equals(0x10));
+                    
+                    ++it_it;
+                    AssertThat(it_it, not Equals(it_end));
+                    AssertThat(uint32_t(*it_it), Equals(0xFF));
+                    
+                    ++it_it;
+                    AssertThat(it_it, not Equals(it_end));
+                    AssertThat(uint32_t(*it_it), Equals(0xFF));
+                    
+                    ++it_it;
+                    AssertThat(it_it, Equals(it_end));
+                });
+            });
         });
     });
 });
