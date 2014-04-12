@@ -7,7 +7,7 @@
 
 namespace bitfield {
     template<uint32_t Size, uint32_t Offset = 0>
-    class bitfield {
+    class field {
     public:
         static constexpr uint32_t SIZE = Size;
         static constexpr uint32_t OFFSET = Offset;
@@ -18,19 +18,19 @@ namespace bitfield {
         static constexpr uint32_t MASK = bit_type(SIZE).max_value() << PADDING;
         
         template<uint32_t NextSize>
-        using next_bitfield = bitfield<NextSize, NEXT_OFFSET>;
+        using next_field = field<NextSize, NEXT_OFFSET>;
         using container_type = std::array<uint8_t, bit_type(NEXT_OFFSET).ceil().byte()>;
         
-        bitfield() = default;
-        bitfield(const bitfield & v) { this->set(v.get()); }
-        bitfield(uint32_t v) { this->set(v); }
+        field() = default;
+        field(const field & v) { this->set(v.get()); }
+        field(uint32_t v) { this->set(v); }
         
-        bitfield & operator =(const bitfield & rop) {
+        field & operator =(const field & rop) {
             this->set(rop.get());
             return *this;
         }
         
-        bitfield & operator =(uint32_t rop) {
+        field & operator =(uint32_t rop) {
             this->set(rop);
             return *this;
         }

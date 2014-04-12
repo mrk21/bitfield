@@ -1,5 +1,5 @@
 #include <bandit/bandit.h>
-#include <bitfield/bitfield.hpp>
+#include <bitfield/field.hpp>
 #include <bitfield/section/list.hpp>
 #include <bitfield/iostream.hpp>
 #include <array>
@@ -8,12 +8,12 @@ namespace bitfield { namespace section {
     union list_test {
         using container_type = std::array<uint8_t, 96>;
         
-        using sections_length_type =                            bitfield< 8>;
-        using v1_type              = sections_length_type::next_bitfield<24>;
+        using sections_length_type =                            field< 8>;
+        using v1_type              = sections_length_type::next_field<24>;
         
         union section_type {
-            using section_length_type =                           bitfield<8>;
-            using v1_type             = section_length_type::next_bitfield<8>;
+            using section_length_type =                           field<8>;
+            using v1_type             = section_length_type::next_field<8>;
             
             section_length_type  section_length;
             v1_type  v1;
