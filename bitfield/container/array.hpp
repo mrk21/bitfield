@@ -1,5 +1,5 @@
-#ifndef __INCLUDED_BITFIELD_CONTAINER_HPP__
-#define __INCLUDED_BITFIELD_CONTAINER_HPP__
+#ifndef __INCLUDED_BITFIELD_CONTAINER_ARRAY_HPP__
+#define __INCLUDED_BITFIELD_CONTAINER_ARRAY_HPP__
 
 #include <array>
 
@@ -8,4 +8,4 @@ namespace bitfield { namespace container {
     using array = std::array<uint8_t, N>;
 }};
 
-#endif // __INCLUDED_BITFIELD_CONTAINER_HPP__
+#endif // __INCLUDED_BITFIELD_CONTAINER_ARRAY_HPP__
