@@ -2,8 +2,8 @@
 #define __INCLUDED_BITFIELD_BITFIELD_HPP__
 
 #include <bitfield/bit_type.hpp>
+#include <bitfield/container/array.hpp>
 #include <cstdint>
-#include <array>
 
 namespace bitfield {
     template<uint32_t Size, uint32_t Offset = 0>
@@ -19,7 +19,7 @@ namespace bitfield {
         
         template<uint32_t NextSize>
         using next_field = field<NextSize, NEXT_OFFSET>;
-        using container_type = std::array<uint8_t, bit_type(NEXT_OFFSET).ceil().byte()>;
+        using container_type = container::array<bit_type(NEXT_OFFSET).ceil().byte()>;
         
         field() = default;
         field(const field & v) { this->set(v.get()); }
