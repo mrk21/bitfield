@@ -72,6 +72,10 @@ namespace bitfield { namespace section {
         using       iterator = iterator_base<      FieldSet,       uint8_t>;
         using const_iterator = iterator_base<const FieldSet, const uint8_t>;
         
+        list() = default;
+        list(const list &) = delete;
+        list & operator =(const list &) = delete;
+        
         iterator begin() { return iterator(this->base_addr());                             }
         iterator   end() { return iterator(this->base_addr() + this->derived()->length()); }
         

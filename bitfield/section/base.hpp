@@ -15,6 +15,10 @@ namespace bitfield { namespace section {
         using       iterator =       uint8_t *;
         using const_iterator = const uint8_t *;
         
+        base() = default;
+        base(const base &) = delete;
+        base & operator =(const base &) = delete;
+        
         iterator begin() { return this->base_addr();                           }
         iterator   end() { return this->base_addr() + this->derived()->size(); }
         
