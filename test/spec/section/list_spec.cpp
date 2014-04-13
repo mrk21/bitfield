@@ -6,7 +6,7 @@
 
 namespace bitfield { namespace section {
     union list_test {
-        using container_type = std::array<uint8_t, 96>;
+        using container_type = container::array<96>;
         
         using sections_length_type =                            field< 8>;
         using v1_type              = sections_length_type::next_field<24>;
