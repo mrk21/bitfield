@@ -22,13 +22,10 @@ namespace bitfield {
         using container_type = container::array<bit_type(NEXT_OFFSET).ceil().byte()>;
         
         field() = default;
-        field(const field & v) { this->set(v.get()); }
-        field(uint32_t v) { this->set(v); }
+        field(const field &) = delete;
+        field & operator =(const field &) = delete;
         
-        field & operator =(const field & rop) {
-            this->set(rop.get());
-            return *this;
-        }
+        field(uint32_t v) { this->set(v); }
         
         field & operator =(uint32_t rop) {
             this->set(rop);
