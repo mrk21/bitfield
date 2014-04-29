@@ -1,12 +1,12 @@
 #include <bandit/bandit.h>
-#include <bitfield/bitfield.hpp>
+#include <bitfield/field.hpp>
 
 namespace bitfield {
-    union bitfield_test {
-        using v1_type =               bitfield< 1>;
-        using v2_type = v1_type::next_bitfield< 9>;
-        using v3_type = v2_type::next_bitfield<14>;
-        using v4_type = v3_type::next_bitfield< 8>;
+    union field_test {
+        using v1_type =               field< 1>;
+        using v2_type = v1_type::next_field< 9>;
+        using v3_type = v2_type::next_field<14>;
+        using v4_type = v3_type::next_field< 8>;
         using container_type = v4_type::container_type;
         
         container_type container;
@@ -19,15 +19,15 @@ namespace bitfield {
 go_bandit([&]{
     using namespace bandit;
     
-    describe("bitfield", [&]{
-        bitfield_test * subject;
+    describe("field", [&]{
+        field_test * subject;
         
         before_each([&]{
             // |1byte        |2byte      |3byte     |4byte      |
             // | 1|000 1100  11|11 1001  0110 1110  |1101 1001  |
             // |v1|v2          |v3                  |v4         |
             // | 1|51          |14702               |217        |
-            subject = new bitfield_test{{{
+            subject = new field_test{{{
                 0b10001100,
                 0b11111001,
                 0b01101110,

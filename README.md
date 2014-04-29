@@ -9,25 +9,25 @@ Examples
 Analyzing the IP header:
 
 ```c++
-#include <bitfield/bitfield.hpp>
+#include <bitfield/field.hpp>
 #include <bitfield/iostream.hpp>
 
 // IP header
 union ip_header {
-    using version_type           =                    bitfield::bitfield< 4>;
-    using ihl_type               =           version_type::next_bitfield< 4>;
-    using dscp_type              =               ihl_type::next_bitfield< 6>;
-    using ecn_type               =              dscp_type::next_bitfield< 2>;
-    using total_length_type      =               ecn_type::next_bitfield<16>;
-    using identification_type    =      total_length_type::next_bitfield<16>;
-    using flags_type             =    identification_type::next_bitfield< 3>;
-    using fragment_offset_type   =             flags_type::next_bitfield<13>;
-    using time_to_live_type      =   fragment_offset_type::next_bitfield< 8>;
-    using protocol_type          =      time_to_live_type::next_bitfield< 8>;
-    using header_checksum_type   =          protocol_type::next_bitfield<16>;
-    using source_ip_address_type =   header_checksum_type::next_bitfield<32>;
-    using dest_ip_address_type   = source_ip_address_type::next_bitfield<32>;
-    using options_type           =   dest_ip_address_type::next_bitfield<32>;
+    using version_type           =                    bitfield::field< 4>;
+    using ihl_type               =           version_type::next_field< 4>;
+    using dscp_type              =               ihl_type::next_field< 6>;
+    using ecn_type               =              dscp_type::next_field< 2>;
+    using total_length_type      =               ecn_type::next_field<16>;
+    using identification_type    =      total_length_type::next_field<16>;
+    using flags_type             =    identification_type::next_field< 3>;
+    using fragment_offset_type   =             flags_type::next_field<13>;
+    using time_to_live_type      =   fragment_offset_type::next_field< 8>;
+    using protocol_type          =      time_to_live_type::next_field< 8>;
+    using header_checksum_type   =          protocol_type::next_field<16>;
+    using source_ip_address_type =   header_checksum_type::next_field<32>;
+    using dest_ip_address_type   = source_ip_address_type::next_field<32>;
+    using options_type           =   dest_ip_address_type::next_field<32>;
     using container_type = options_type::container_type;
     
     container_type container;

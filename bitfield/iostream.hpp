@@ -1,13 +1,13 @@
 #ifndef __INCLUDED_BITFIELD_IOSTREAM_HPP__
 #define __INCLUDED_BITFIELD_IOSTREAM_HPP__
 
-#include <bitfield/bitfield.hpp>
+#include <bitfield/field.hpp>
 #include <cstdint>
 #include <iostream>
 
 namespace bitfield {
     template<uint32_t S, uint32_t O>
-    inline std::ostream & operator <<(std::ostream & out, const bitfield<S,O> & v) {
+    inline std::ostream & operator <<(std::ostream & out, const field<S,O> & v) {
         return out << v.get();
     }
 }
