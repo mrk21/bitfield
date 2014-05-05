@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(bitfield2)
+project(bitfield)
 
 set(CMAKE_CXX_FLAGS "-std=gnu++11 -stdlib=libc++ -Wall -Wextra -Wno-sign-compare")
 
