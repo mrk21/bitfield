@@ -22,5 +22,5 @@
 
 # Others
 *.swp
-*.d
 .DS_Store
+gen/
