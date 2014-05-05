@@ -1,0 +1,22 @@
+BANDIT_VERSION = 'v1.1.4'
+
+PRODUCT = []
+DEVELOP = ['bandit']
+ALL = PRODUCT + DEVELOP
+
+
+task :default => ALL
+
+desc 'Install the package which required to the product code.'
+task :product => PRODUCT
+
+desc 'Install the package which required to the development.'
+task :develop => ALL
+
+
+directory 'bandit' do |t|
+  sh "git clone https://github.com/joakimkarlsson/bandit.git #{t.name}"
+  Dir.chdir(t.name) do
+    sh "git checkout #{BANDIT_VERSION}"
+  end
+end
