@@ -1,19 +1,31 @@
 #ifndef __INCLUDED_BITFIELD_SECTION_BASE_HPP__
 #define __INCLUDED_BITFIELD_SECTION_BASE_HPP__
 
+#include <bitfield/section/traits.hpp>
 #include <cstddef>
 #include <cstdint>
 
 namespace bitfield { namespace section {
-    // You must define the methods listed below to the Derived class.
+    // You must define the methods and types listed below.
     // 
-    // const uint8_t * base_addr() const; // Return an address of the first byte.
-    // std::size_t length() const; // Return a byte of the container.
-    template<class Derived, class FieldSet, class ParentFieldSet>
+    // Derived class:
+    //   const uint8_t * base_addr() const; // Return an address of the first fieldset.
+    //   std::size_t length() const; // Return a total byte of the sections.
+    // 
+    // Parent class:
+    //   using base_class = <base class>; // The base class of the Parent class.
+    //                                    // But not needed when the Parent class not inherited.
+    template<class Derived, class FieldSet, class Parent>
     class base {
+        using self = base;
+        
     public:
         using       iterator =       uint8_t *;
         using const_iterator = const uint8_t *;
+        
+        static constexpr std::ptrdiff_t offset_from_parent() {
+            return parent_traits<Parent>::OFFSET_FROM_PARENT;
+        }
         
         base() = default;
         base(const base &) = delete;
@@ -46,8 +58,8 @@ namespace bitfield { namespace section {
             return this->derived()->length();
         }
         
-              ParentFieldSet * parent()       { return (      ParentFieldSet *)this; }
-        const ParentFieldSet * parent() const { return (const ParentFieldSet *)this; }
+              Parent * parent()       { return (      Parent *)((uint8_t *)this - self::offset_from_parent()); }
+        const Parent * parent() const { return (const Parent *)((uint8_t *)this - self::offset_from_parent()); }
         
               FieldSet * fieldset()       { return (      FieldSet *)this->base_addr();            }
         const FieldSet * fieldset() const { return (const FieldSet *)this->derived()->base_addr(); }
