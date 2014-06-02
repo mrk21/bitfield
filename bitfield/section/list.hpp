@@ -1,10 +1,11 @@
 #ifndef __INCLUDED_BITFIELD_SECTION_LIST_HPP__
 #define __INCLUDED_BITFIELD_SECTION_LIST_HPP__
 
+#include <bitfield/section/traits.hpp>
 #include <iterator>
 
 namespace bitfield { namespace section {
-    // You must define the methods listed below.
+    // You must define the methods and types listed below.
     // 
     // Derived class:
     //   const uint8_t * base_addr() const; // Return an address of the first fieldset.
@@ -12,8 +13,14 @@ namespace bitfield { namespace section {
     // 
     // FieldSet class:
     //   std::size_t length() const; // Return a byte of the fieldset.
+    // 
+    // Parent class:
+    //   using base_class = <base class>; // The base class of the Parent class.
+    //                                    // But not needed when the Parent class not inherited.
     template<class Derived, class FieldSet, class Parent>
     class list {
+        using self = list;
+        
         template<class CVFieldSet, typename CVUint8_t>
         class iterator_base: public std::iterator<std::forward_iterator_tag, CVFieldSet> {
             CVUint8_t * addr;
@@ -72,6 +79,10 @@ namespace bitfield { namespace section {
         using       iterator = iterator_base<      FieldSet,       uint8_t>;
         using const_iterator = iterator_base<const FieldSet, const uint8_t>;
         
+        static constexpr std::ptrdiff_t offset_from_parent() {
+            return parent_traits<Parent>::OFFSET_FROM_PARENT;
+        }
+        
         list() = default;
         list(const list &) = delete;
         list & operator =(const list &) = delete;
@@ -99,8 +110,8 @@ namespace bitfield { namespace section {
             return n;
         }
         
-              Parent * parent()       { return (      Parent *)this; }
-        const Parent * parent() const { return (const Parent *)this; }
+              Parent * parent()       { return (      Parent *)((uint8_t *)this - self::offset_from_parent()); }
+        const Parent * parent() const { return (const Parent *)((uint8_t *)this - self::offset_from_parent()); }
         
     private:
               Derived * derived()       { return static_cast<      Derived *>(this); }
