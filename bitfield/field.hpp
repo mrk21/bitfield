@@ -2,6 +2,7 @@
 #define __INCLUDED_BITFIELD_BITFIELD_HPP__
 
 #include <bitfield/bit_type.hpp>
+#include <bitfield/byte_type.hpp>
 #include <bitfield/container/array.hpp>
 #include <cstdint>
 
@@ -16,6 +17,14 @@ namespace bitfield {
         static constexpr uint32_t BYTE = bit_type(SIZE).ceil().byte();
         static constexpr uint32_t PADDING = bit_type(NEXT_OFFSET).ceil().diff(NEXT_OFFSET).bit();
         static constexpr uint32_t MASK = bit_type(SIZE).max_value() << PADDING;
+        
+        static constexpr uint32_t size() {
+            return BYTE;
+        }
+        
+        static constexpr byte_type next_bytes() {
+            return bit_type(NEXT_OFFSET).ceil().byte();
+        }
         
         template<uint32_t NextSize>
         using next_field = field<NextSize, NEXT_OFFSET>;
@@ -68,7 +77,7 @@ namespace bitfield {
                 addr[i] |= value_addr[j];
             }
         }
-   };
+    };
 }
 
 #endif // __INCLUDED_BITFIELD_BITFIELD_HPP__

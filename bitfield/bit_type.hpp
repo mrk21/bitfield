@@ -10,6 +10,10 @@ namespace bitfield {
     public:
         constexpr bit_type(uint32_t v) : v(v) {}
         
+        constexpr operator uint32_t() const {
+            return this->bit();
+        }
+        
         constexpr bit_type floor() const {
             return this->v >> 3 << 3;
         }
@@ -35,8 +39,8 @@ namespace bitfield {
         }
         
         constexpr bit_type diff(bit_type target) const {
-            return this->v < target.v ? target.v - this->v
-                                      : this->v - target.v;
+            return this->v < target.v ?
+                target.v - this->v : this->v - target.v;
         }
         
         template<typename T = uint8_t, typename U>

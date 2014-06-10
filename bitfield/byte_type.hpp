@@ -10,6 +10,10 @@ namespace bitfield {
     public:
         constexpr byte_type(uint32_t v) : v(v<<3) {}
         
+        constexpr operator uint32_t() const {
+            return this->byte();
+        }
+        
         constexpr uint32_t bit() const {
             return this->v.bit();
         }
